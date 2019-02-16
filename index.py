@@ -36,7 +36,7 @@ def ping_server():
 
 def run_server():
     port = int(os.environ.get('PORT', "4000"))
-    app.run(host='0.0.0.0', port=port, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=port, debug=True, use_reloader=os.environ.get('ENV')=='development')
 
 
 if __name__ == "__main__":
