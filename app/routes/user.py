@@ -1,35 +1,28 @@
 import os
 from flask import request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restplus import Namespace, Resource, fields
 
 from ..elastic_module import DBClient
 
-route = Namespace('experience', description='experience related operations')
+route = Namespace('user', description='user related operations')
 
-experienceModel = route.model('Experience', {
+userModel = route.model('User', {
     'id': fields.String(required=True),
-    'text': fields.String(required=True),
-    'tags': fields.List(fields.String),
-    'tracks': fields.List(fields.String)
-})
-
-experienceList = route.model('ExperienceList', {
-    'ok': fields.Boolean(required=True),
-    'data': fields.List(experienceModel), 
-    'message': fields.String()
+    'name': fields.String(required=True),
+    'email': fields.String(required=True),
+    'password': fields.String(required=True)
 })
 
 responseModel = route.model('Response', {
     'ok': fields.Boolean(required=True),
-    'data': fields.Nested(experienceModel), 
+    'data': fields.Nested(userModel), 
     'message': fields.String()
 })
 
 
 @route.route('')
-class Experience(Resource):
-    db = DBClient('experience')
+class User(Resource):
+    db = DBClient('user')
 
     @route.marshal_with(responseModel)
     def get(self):
@@ -41,7 +34,7 @@ class Experience(Resource):
         else:
             return {'ok': False, 'message': 'document with id {} not found'.format(exp_id)}
 
-    @route.expect(experienceModel, validate=True)
+    @route.expect(userModel, validate=True)
     @route.marshal_with(responseModel)
     def post(self):
         doc = request.get_json()
@@ -55,14 +48,3 @@ class Experience(Resource):
             return {'ok': True, 'message': 'document with id {} deleted'.format(exp_id)}
         else:
             return {'ok': False, 'message': 'document with id {} not found'.format(exp_id)}
-
-@route.route('/search')
-class ExperienceSearch(Resource):
-    db = DBClient('experience')
-
-    @route.marshal_with(experienceList)
-    @jwt_required
-    def get(self):
-        q = request.args['q']
-        probs = self.db.search(q, ['text', 'tags'])
-        return {'ok': True, 'data': probs}

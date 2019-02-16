@@ -4,6 +4,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 
+import MyAppBar from "./MyAppBar";
+import LandingForm from "./LandingForm";
+
+
+
 
 const theme = createMuiTheme({
     palette: {
@@ -15,9 +20,8 @@ export default (props) => {
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
-            <h1>
-                Problem-overflow
-            </h1>
+            <MyAppBar/>
+            <LandingForm/>
         </MuiThemeProvider>
     );
 }

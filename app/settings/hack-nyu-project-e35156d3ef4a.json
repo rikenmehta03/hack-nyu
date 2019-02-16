@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "hack-nyu-project",
+  "private_key_id": "e35156d3ef4a288fa121bca43d922f9d21145698",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC3w8VB6xvcswDN\np/S9N1VPB+dDn0TccknwlPidMs2jBinoWF9D15me25k+m/NmeZGacYf6uD8wCl2U\nr8mzbHxl8xH3ZmDdiyAjQsHJiaOROTvKUCkDDOnXzZZTELDvChzvd/Hjd3WvK/68\nxAeScLuRwwWnD22HRkS2FJ04B5o4CKRjI4TpcV6rm8Vr0+dQCfLb9bixqx0OyWV1\nzFgLFdGVmWzZCx1Vvhn6hNCPcNr0meaFiFg1v4fh6xkmK//SbHQJDYaAexZb0ExH\nu4CtZ0e+zpF1bSk6u7Pip+bwCZIRXjnVFKx7k+Jfp2pCsybU9A+siRMrBp9YmvyY\n5CxBd5rVAgMBAAECggEADmSkVebnzkMsKQkVx4VtEzavwiFx5jOCn6s5xvo8Yzki\n3cKgmr9pL8LMctWjj7jhRiL/sj86UVvZrsEozHrCFywdxQf9E0a7DcTEFkut04lg\nXP0m6sjypRP1r7jeQULEatJoUD3CXaXvZ4wreaiGkHXUqTXLCUes+92LRa2wW+FA\nOYI7aZgNRtVwXuk0NrSRPqlxUvkR1FPCxs9hpI+3afoJ1UqoxPJH+OibasloCtOv\n3Y93hLOSNdUAH3Fg1Jj6m+A7XTr9lOzn13N8jaG77h0axzUC/UHp8atomIAfYVhF\nZgiwfEln+ggRv8deLqWNy8HP/bMYYjuHMvjAnatCKwKBgQDcKHlKkCR8OruXN+Zt\ntFDipjy9Eq+QNWhgA5JpiQH5OLXBPG3S7KbYu6TXTx0YofRGgd9j2QO9mrP5kobv\nZlvKERZ4Hhd3oNtk1OoekcBQxDwZdRblp4DhqFrtTyHNOoWDQmURksmYFvupqBK7\nWXdDPE/eDZZWBDGwHqAs7bJWgwKBgQDVrofZjiB/44gUppXl2xoIX5nfiX92aqw3\n+7yPTz6fOCpp8sJnFPVlQ5LrZF0iNflPsop5PSUYWm+ELVs/1QBKXtb9wPbkgs5T\nD3IcnWpzlSUZV8npypfMWT5vHhL9Qauvq59s8CqvdACzc0Q5AsJ0B25hCDLavcVq\nnZFVyjlJxwKBgQCHZXjay3U01aYi5OUZGOkZyuTV3xUL2ly7l9bGgtUs4ZyeH7zn\nGFWwOw6wv94EFS424o5xSLjNNcRzu5Kyzr+qsQGhk9gY4VusUmk9raOZyGWxvln7\nmR1hKnnpMl52agRMalvgB+dlWtUhTNVgVTBMsF3qEW8grWmlh+A4YWLpYwKBgFaU\n+JDLiRmo3UvY0CYp6Ft6OUQdV5toz82DYD0FVA95153EcscH9AMLJW3h5eblzdZg\nNsG3Z999TXBWXIH50btQwHZjiObApc98E7XKhwa8aSLisnrbzzRK+QRXQESEJofw\n15Fxoyoiq+IKk5syJg6TsEL66ng9qs9vdyM25I2jAoGAaLbxtWCbrZs2CRt15O3E\nibLKX9efakBhN/vugbLdO1g7O065hJko5+ytX2Adcg/LFxT/i4Yml5lMhrSWm6bV\nlGf2CFM/1+/qiALuLrfOivUk97cPcW2I5r0Qp6WUFwIeWjH3iMEwjif5gUQDkpIu\n41p7csPNivi2dPWcALz3s8Q=\n-----END PRIVATE KEY-----\n",
+  "client_email": "hack-nyu-account@hack-nyu-project.iam.gserviceaccount.com",
+  "client_id": "102671135801643773485",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/hack-nyu-account%40hack-nyu-project.iam.gserviceaccount.com"
+}
