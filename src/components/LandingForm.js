@@ -15,41 +15,107 @@ import Chip from "@material-ui/core/Chip";
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+const tags = [
+    {label:"Health"},
+    {label:"Sustainability"},
+    {label:"Finance"},
+    {label:"illiteracy"},
+    {label:"Education"},
+    {label:"Poverty"},
+    {label:"Ineffective Government"},
+    {label:"Civil Rights"},
+    {label:"Pollution"},
+    {label:"Immigration"},
+    {label:"Homelessness"},
+    {label:"Terrorism"},
+    {label:"Affordable Housing"},
+    {label:"Student Loan Debt"},
+    {label:"Police Brutality"},
+    {label:"Racism"},
+    {label:"Climate Change"},
+    {label:"Moral Decline"},
+    {label:"Unemployment"},
+    {label:"Green Energy"},
+    {label:"Bullying"},
+    {label:"Income Inequality"},
+    {label:"Corporate Influence"},
+    {label:"Health Care Reform"},
+    {label:"Animal Rights"},
+    {label:"Abortion"},
+    {label:"Nuclear Weapons"},
+    {label:"Defense Spending"},
+    {label:"Childhood Obesity"}
+]
+
 const suggestions = [
-    { label: "Afghanistan" },
-    { label: "Aland Islands" },
-    { label: "Albania" },
-    { label: "Algeria" },
-    { label: "American Samoa" },
-    { label: "Andorra" },
-    { label: "Angola" },
-    { label: "Anguilla" },
-    { label: "Antarctica" },
-    { label: "Antigua and Barbuda" },
-    { label: "Argentina" },
-    { label: "Armenia" },
-    { label: "Aruba" },
-    { label: "Australia" },
-    { label: "Austria" },
-    { label: "Azerbaijan" },
-    { label: "Bahamas" },
-    { label: "Bahrain" },
-    { label: "Bangladesh" },
-    { label: "Barbados" },
-    { label: "Belarus" },
-    { label: "Belgium" },
-    { label: "Belize" },
-    { label: "Benin" },
-    { label: "Bermuda" },
-    { label: "Bhutan" },
-    { label: "Bolivia, Plurinational State of" },
-    { label: "Bonaire, Sint Eustatius and Saba" },
-    { label: "Bosnia and Herzegovina" },
-    { label: "Botswana" },
-    { label: "Bouvet Island" },
-    { label: "Brazil" },
-    { label: "British Indian Ocean Territory" },
-    { label: "Brunei Darussalam" }
+    {label:"Profession"},
+    {label:"Professors"},
+    {label:"Teachers"},
+    {label:"Actors"},
+    {label:"Clergy"},
+    {label:"Musicians"},
+    {label:"Philosophers"},
+    {label:"Visual Artists"},
+    {label:"Writers"},
+    {label:"Audiologists"},
+    {label:"Chiropractors"},
+    {label:"Dentists"},
+    {label:"Dietitians"},
+    {label:"Doctors"},
+    {label:"Medical Laboratory Scientists"},
+    {label:"Midwives"},
+    {label:"Nurses"},
+    {label:"Occupational therapists"},
+    {label:"Optometrists"},
+    {label:"Pathologists"},
+    {label:"Pharmacists"},
+    {label:"Physical therapists"},
+    {label:"Physicians"},
+    {label:"Psychologists"},
+    {label:"Speech-language pathologists"},
+    {label:"Accountants"},
+    {label:"Actuaries"},
+    {label:"Agriculturists"},
+    {label:"Architects"},
+    {label:"Economists"},
+    {label:"Engineers"},
+    {label:"Interpreters"},
+    {label:"Attorney at law"},
+    {label:"Advocates"},
+    {label:"Solicitors"},
+    {label:"Librarians"},
+    {label:"Statisticians"},
+    {label:"Surveyors"},
+    {label:"Urban planners"},
+    {label:"Human resources"},
+    {label:"Firefighters"},
+    {label:"Judges"},
+    {label:"Military officers"},
+    {label:"Police officers"},
+    {label:"Air traffic controllers"},
+    {label:"Aircraft pilots"},
+    {label:"Sea captains"},
+    {label:"Scientists"},
+    {label:"Astronomers"},
+    {label:"Biologists"},
+    {label:"Botanists"},
+    {label:"Ecologists"},
+    {label:"Geneticists"},
+    {label:"Immunologists"},
+    {label:"Pharmacologists"},
+    {label:"Virologists"},
+    {label:"Zoologists"},
+    {label:"Chemists"},
+    {label:"Geologists"},
+    {label:"Meteorologists"},
+    {label:"Oceanographers"},
+    {label:"Physicists"},
+    {label:"Programmers"},
+    {label:"Web developers"},
+    {label:"Designers"},
+    {label:"Graphic designers"},
+    {label:"Web designers"},
+    {label:"Other"}
 ];
 
 function renderInput(inputProps) {
@@ -102,24 +168,42 @@ renderSuggestion.propTypes = {
     suggestion: PropTypes.shape({ label: PropTypes.string }).isRequired
 };
 
-function getSuggestions(value) {
+function getSuggestions(value,type) {
+
     const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
 
-    return inputLength === 0
-        ? []
-        : suggestions.filter(suggestion => {
-            const keep =
-                count < 5 &&
-                suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+    if(type == "tags"){
+        return inputLength === 0
+            ? []
+            : tags.filter(suggestion => {
+                const keep =
+                    count < 5 &&
+                    suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
 
-            if (keep) {
-                count += 1;
-            }
+                if (keep) {
+                    count += 1;
+                }
 
-            return keep;
-        });
+                return keep;
+            });
+    }
+    else{
+        return inputLength === 0
+            ? []
+            : suggestions.filter(suggestion => {
+                const keep =
+                    count < 5 &&
+                    suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+
+                if (keep) {
+                    count += 1;
+                }
+
+                return keep;
+            });
+    }
 }
 
 class DownshiftMultiple extends React.Component {
@@ -203,7 +287,7 @@ class DownshiftMultiple extends React.Component {
                             })}
                             {isOpen ? (
                                 <Paper className={classes.paper} square>
-                                    {getSuggestions(inputValue2).map((suggestion, index) =>
+                                    {getSuggestions(inputValue2,"tags").map((suggestion, index) =>
                                         renderSuggestion({
                                             suggestion,
                                             index,
@@ -313,6 +397,8 @@ class LandingForm extends React.Component {
                             'tags': []
                         }
                     })
+                    alert("Thank You");
+
                 }
             });
     }
@@ -351,7 +437,7 @@ class LandingForm extends React.Component {
                                                 <div {...getMenuProps()}>
                                                     {isOpen ? (
                                                         <Paper className={classes.paper} square>
-                                                            {getSuggestions(inputValue).map((suggestion, index) =>
+                                                            {getSuggestions(inputValue,"prof").map((suggestion, index) =>
                                                                 renderSuggestion({
                                                                     suggestion,
                                                                     index,
