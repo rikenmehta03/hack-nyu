@@ -11,12 +11,7 @@ module.exports = {
         path: path.join(__dirname, 'public'),
         filename: '[name].js'
     },
-    resolve: {
-        alias: {
-            '@material-ui/core': '@material-ui/core/es',
-            '@material-ui/icons': '@material-ui/icons/es'
-        }
-    },
+
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
