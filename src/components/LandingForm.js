@@ -60,8 +60,8 @@ const styles = theme => ({
 
 class LandingForm extends React.Component{
     state = {
-        occupation: 'Occupation',
-        problemText: 'Care to Share?'
+        occupation: '',
+        problemText: ''
     };
 
     handleChange = name => event => {
@@ -91,6 +91,7 @@ class LandingForm extends React.Component{
                             <TextField
                                 id="occupation"
                                 label="What do you do?"
+                                placeholder="Occupation"
                                 className={classes.textField}
                                 value={this.state.occupation}
                                 onChange={this.handleChange('occupation')}
@@ -104,6 +105,7 @@ class LandingForm extends React.Component{
                                 label="What problem would you like to share with us today?"
                                 multiline={true}
                                 rowsMax="8"
+                                placeholder="Care to Share?"
                                 value={this.state.problemText}
                                 onChange={this.handleChange('problemText')}
                                 className={classes.textField}
