@@ -32,13 +32,15 @@ const styles = theme => ({
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
         alignItems: 'center',
-        display: 'flex'
+        display: 'flex',
+        justifyContent: 'center',
     },
     paper: {
         marginTop: theme.spacing.unit * 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        textAlign:'center',
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
     },
     avatar: {
@@ -46,8 +48,9 @@ const styles = theme => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '50%', // Fix IE 11 issue.
+        width: '80%', // Fix IE 11 issue.
         marginTop: theme.spacing.unit,
+        minWidth: '250px'
     },
     submit: {
         marginTop: theme.spacing.unit * 3,
