@@ -7,16 +7,16 @@ from ..elastic_module import DBClient
 
 route = Namespace('experience', description='experience related operations')
 
-experienceModel = route.model('Experience', {
+experienceModel = {
     'id': fields.String(required=True),
     'text': fields.String(required=True),
     'tags': fields.List(fields.String),
     'tracks': fields.List(fields.String)
-})
+}
 
 experienceList = route.model('ExperienceList', {
     'ok': fields.Boolean(required=True),
-    'data': fields.List(experienceModel), 
+    'data': fields.List(fields.Nested(experienceModel)), 
     'message': fields.String()
 })
 

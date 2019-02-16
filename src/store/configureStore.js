@@ -1,11 +1,17 @@
 import thunkMiddleware from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import taskReducer from '../reducers/task';
+import experienceReducer from '../reducers/experience';
+import problemReducer from '../reducers/problem';
+import userReducer from '../reducers/user';
+import solutionReducer from '../reducers/solution';
 
 export default () => {
     const store = createStore(
         combineReducers({
-            task: taskReducer
+            experience: experienceReducer,
+            problem: problemReducer,
+            solution: solutionReducer,
+            user: userReducer
         }),
         applyMiddleware(
             thunkMiddleware

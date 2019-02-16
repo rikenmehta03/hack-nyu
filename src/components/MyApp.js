@@ -7,21 +7,19 @@ import grey from '@material-ui/core/colors/grey';
 import MyAppBar from "./MyAppBar";
 import LandingForm from "./LandingForm";
 
-
-
-
 const theme = createMuiTheme({
     palette: {
         primary: grey,
     }
 });
 
+
 export default (props) => {
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
-            <MyAppBar/>
-            <LandingForm/>
+            <MyAppBar />
+            <LandingForm />
         </MuiThemeProvider>
     );
 }

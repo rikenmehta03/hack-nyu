@@ -12,7 +12,7 @@ votes = route.model('Votes', {
     'down': fields.Integer(required=True)
 })
 
-problemsModel = route.model('Problems', {
+problemsModel = {
     'id': fields.String(required=True),
     'user': fields.String(required=True),
     'title': fields.String(required=True),
@@ -23,11 +23,11 @@ problemsModel = route.model('Problems', {
     'progress': fields.Float(required=True),
     'votes': fields.Nested(votes, required=True),
     'flag': fields.String(required=True)
-})
+}
 
 problemList = route.model('ProblemList', {
     'ok': fields.Boolean(required=True),
-    'data': fields.List(problemsModel),
+    'data': fields.List(fields.Nested(problemsModel)),
     'message': fields.String()
 })
 

@@ -1,37 +1,8 @@
-const taskReducerDefaultState = {
-    todo: [
-        {
-            _id: 0,
-            title: 'todo test 0'
-        },
-        {
-            _id: 1,
-            title: 'todo test 1'
-        }
-    ],
-    doing: [
-        {
-            _id: 2,
-            title: 'doing test 0'
-        },
-        {
-            _id: 3,
-            title: 'doing test 1'
-        }
-    ],
-    done: [
-        {
-            _id: 4,
-            title: 'done test 0'
-        },
-        {
-            _id: 5,
-            title: 'done test 1'
-        }
-    ]
+const experienceReducerDefaultState = {
+    
 }
 
-export default (state = taskReducerDefaultState, action) => {
+export default (state = experienceReducerDefaultState, action) => {
 
     switch (action.type) {
         case 'CHANGE_STATE':

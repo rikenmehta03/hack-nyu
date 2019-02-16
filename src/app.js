@@ -9,6 +9,7 @@ import { fetchInterceptor } from './utils/fetchInterceptor';
 const interceptor = fetchInterceptor();
 const store = configureStore();
 
+
 const jsx = (
     <Provider store={store}>
         <MyApp />
