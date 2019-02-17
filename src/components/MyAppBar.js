@@ -38,6 +38,9 @@ class MyAppBar extends Component {
                         <Link to="/login">
                             <Button color="inherit">Login</Button>
                         </Link>
+                        <Link to="/signup">
+                            <Button color="inherit">Register</Button>
+                        </Link>
                     </Toolbar>
                 </AppBar>
             </div>

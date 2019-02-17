@@ -7,6 +7,7 @@ import MyAppBar from "./MyAppBar";
 import LandingForm from "./LandingForm";
 import CurationForm from "./CurationForm";
 import Login from "./Login";
+import Register from "./Register";
 
 const theme = createMuiTheme({
     palette: {
@@ -23,6 +24,7 @@ export default (props) => {
                 <MyAppBar />
                 <Switch>
                     <Route exact path="/" component={LandingForm} />
+                    <Route path="/signup" component={Register} />
                     <Route path="/login" component={Login} />
                     <Route path="/curation" component={CurationForm} />
                 </Switch>

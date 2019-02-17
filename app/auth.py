@@ -1,5 +1,5 @@
 import os
-from flask import request, jsonify, Blueprint
+from flask import request, jsonify, Blueprint, redirect
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, jwt_refresh_token_required, get_jwt_identity)
 from app import app, flask_bcrypt, jwt
@@ -23,7 +23,6 @@ def auth_user():
     ''' auth endpoint '''
     data = request.get_json()    
     user = db.get_by_query({'email': data['email']})
-
     if user and flask_bcrypt.check_password_hash(user['password'], data['password']):
         del user['password']
         access_token = create_access_token(identity=data)
@@ -40,6 +39,7 @@ def register():
     data = request.get_json()
     if 'password' in data:
         data['password'] = flask_bcrypt.generate_password_hash(data['password']).decode('utf-8')
+        del data['netId']
         if db.put(data):
             return jsonify({'ok': True, 'message': 'User created successfully!'}), 200
         else:

@@ -58,14 +58,13 @@ class CurationForm extends React.Component {
     render() {
         const {experience, problem, classes} = this.props;
         const {authRequired} = this.state;
-        console.log(experience,problem);
+        
         if (authRequired)
             return <Redirect to="/login"/>
 
         return (
                 <div className={classes.root}>
                     <Grid container spacing={24}>
-
                         <Grid item xs={12} sm={12}>
                             <Paper className={classes.paper}>
                                 <TextField
@@ -85,7 +84,7 @@ class CurationForm extends React.Component {
                             </Typography>
                             {experience.experience.map((items) =>
                                 <Grid item xs={12} sm={12}>
-                                    <Paper>
+                                    <Paper className={classes.paper}>
                                         <Typography variant="h5" align={"left"} gutterBottom>{items.text}</Typography>
                                         <br/>
                                         {items.tags.map((tag) => <Chip label={tag} /> )}
@@ -101,7 +100,7 @@ class CurationForm extends React.Component {
                             </Typography>
                             {problem.problem.map((items) =>
                                 <Grid item xs={12} sm={12}>
-                                    <Paper>
+                                    <Paper className={classes.paper}>
                                         <Typography variant="h5" align={"left"} gutterBottom>{items.title}</Typography>
                                         <br/>
                                         <Typography variant="h5" align={"left"} gutterBottom>{items.description}</Typography>

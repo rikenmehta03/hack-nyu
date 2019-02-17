@@ -1,6 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom'
 
+import uuid from "uuid";
+
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -18,26 +20,17 @@ const styles = theme => ({
 });
 
 
-class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        var token = localStorage.getItem('hack-nyu-auth');
-        if (token) {
-            this.state = {
-                login: true,
-                username: '',
-                password: ''
-            }
-        } else {
-            this.state = {
-                login: false,
-                username: '',
-                password: ''
-            }
-        }
-
+class Register extends React.Component {
+    state = {
+        username: '',
+        password: '',
+        name: '',
+        netId: '',
+        login: false
     }
-    handleClick = (event) => {
+
+    auth = () => {
+        console.log('in auth');
         var opt = {
             headers: {
                 "content-type": "application/json"
@@ -57,6 +50,29 @@ class Login extends React.Component {
                 }
             });
     }
+    handleClick = (event) => {
+        var opt = {
+            headers: {
+                "content-type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+                id: uuid.v4(),
+                email: this.state.username,
+                password: this.state.password,
+                name: this.state.name,
+                netId: this.state.netId,
+                reputation: 0
+            })
+        }
+        fetch('/register', opt)
+            .then(results => results.json())
+            .then(response => {
+                if (response.ok) {
+                    this.auth();
+                }
+            });
+    }
     render() {
         const { classes } = this.props;
         const { login } = this.state;
@@ -66,8 +82,22 @@ class Login extends React.Component {
         else
             return <React.Fragment>
                 <TextField
-                    helperText="Enter your Username"
-                    label="Username"
+                    helperText="Enter your Name"
+                    label="Name"
+                    className={classes.textField}
+                    onChange={(event) => this.setState({ name: event.target.value })}
+                />
+
+                <TextField
+                    helperText="Enter your NetId"
+                    label="NetId"
+                    className={classes.textField}
+                    onChange={(event) => this.setState({ netId: event.target.value })}
+                />
+
+                <TextField
+                    helperText="Enter your Email"
+                    label="Email"
                     className={classes.textField}
                     onChange={(event) => this.setState({ username: event.target.value })}
                 />
@@ -80,17 +110,17 @@ class Login extends React.Component {
                     onChange={(event) => this.setState({ password: event.target.value })}
                 />
 
-                <Button 
-                    variant="raised" 
-                    color="primary" 
-                    onClick={(event) => this.handleClick(event)} 
-                    className={classes.button} 
+                <Button
+                    variant="raised"
+                    color="primary"
+                    onClick={(event) => this.handleClick(event)}
+                    className={classes.button}
                 >
-                    Login
+                    Register
                 </Button>
             </React.Fragment>
 
     }
 }
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Register);
