@@ -25,11 +25,11 @@ def create_match_query(doc):
 
 def create_search_query(q, fields):
     query = {
-        "multi_match": {
-            "query":      q,
-            "type":       "best_fields",
-            "fields":     fields,
-            "tie_breaker": 0.3
+        "query": {
+            "query_string": {
+                "query":  "*" + q + "*",
+                "fields": fields
+            }
         }
     }
     return query

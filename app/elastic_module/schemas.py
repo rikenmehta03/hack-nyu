@@ -149,7 +149,7 @@ user = {
         }
     },
     "additionalProperties": False,
-    "required": ["id", "name", "email", "password", "domain", "reputation"]
+    "required": ["id", "name", "email", "password", "reputation"]
 }
 
 def get_fields(index):

@@ -4,6 +4,24 @@ export const fetchInterceptor = () => {
     const unregister = fetchIntercept.register({
         request: function (url, config) {
             // Modify the url or config here
+            const token = localStorage.getItem('hack-nyu-auth');
+            if (config) {
+                config.credentials = 'same-origin';
+                if (config.headers) {
+                    config.headers['Authorization'] = 'Bearer '+ token;
+                } else {
+                    config.headers = {
+                        'Authorization': 'Bearer '+ token
+                    }
+                }
+            } else {
+                config = {
+                    credentials: 'same-origin',
+                    headers: {
+                        'Authorization': 'Bearer '+ token
+                    }
+                };
+            }
             return [url, config];
         },
 

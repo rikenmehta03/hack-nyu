@@ -1,12 +1,13 @@
 import os
+import logging
 from flask import jsonify, request, make_response, send_from_directory
 
 from app import app
 
+logging.basicConfig(level=logging.DEBUG)
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 PUBLIC_PATH = os.path.join(ROOT_PATH, 'public')
 VERSION = os.environ.get('VERSION', 'v1.0')
-
 
 @app.errorhandler(404)
 def not_found(error):

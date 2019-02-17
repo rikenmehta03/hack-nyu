@@ -53,14 +53,19 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'public'),
         host: "localhost",
+        historyApiFallback: true,
         proxy: {
-            '/app.js': {
-                target: 'http://localhost:8080'
+            '/api/**': {
+                target: 'http://localhost:4000',
+                secure: false,
+                changeOrigin: true
             },
-            '/vendors.js': {
-                target: 'http://localhost:8080'
+            '/auth': {
+                target: 'http://localhost:4000',
+                secure: false,
+                changeOrigin: true
             },
-            '/**': {
+            '/register': {
                 target: 'http://localhost:4000',
                 secure: false,
                 changeOrigin: true
