@@ -1,14 +1,25 @@
 const experienceReducerDefaultState = {
-    experience:[]
+    experienceList: []
 }
 
 export default (state = experienceReducerDefaultState, action) => {
 
     switch (action.type) {
         case 'LOAD_EXPERIENCES':
+            let data = action.data.map(element => {
+                return {
+                    ...element,
+                    checked: false
+                }
+            });
             return {
                 ...state,
-                experience: action.data
+                experienceList: data
+            };
+        case 'UPDATE_EXPERIENCE':
+            return {
+                ...state,
+                experienceList: action.data
             };
         default:
             return state;

@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { withStyles } from "@material-ui/core/styles";
-import {getProblems} from '../actions/problem';
-import {getExperience} from "../actions/experience";
+import { getProblems } from '../actions/problem';
+import { getExperience, updateExperience } from "../actions/experience";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,8 +11,6 @@ import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 
 import { Redirect } from 'react-router-dom';
-
-
 
 
 const styles = theme => ({
@@ -39,124 +37,117 @@ class CurationForm extends React.Component {
     state = {
         authRequired: false,
     }
-    init = (text) => {
-        var token = localStorage.getItem('hack-nyu-auth');
-        if (!token) {
-            this.setState({authRequired: true});
-        }
+    loadData = (text = '') => {
+
         this.props.dispatch(getExperience(text));
         this.props.dispatch(getProblems(text));
     }
     componentDidMount() {
-        this.init("");
+        var token = localStorage.getItem('hack-nyu-auth');
+        if (!token) {
+            this.setState({ authRequired: true });
+        }
+        this.loadData();
     }
 
     handleChange = (event) => {
-        this.init(event.target.value);
+        this.loadData(event.target.value);
     }
 
-    handleCheckedChange =(items)=> () => {
-
-
+    handleCheckedChange = (index) => () => {
+        let experienceList = this.props.experience.experienceList;
+        experienceList[index].checked = !experienceList[index].checked;
+        this.props.dispatch(updateExperience(experienceList));
     }
 
     render() {
-        const {experience, problem, classes} = this.props;
+        const { experience, problem, classes } = this.props;
 
-        const {authRequired} = this.state;
+        const { authRequired } = this.state;
 
-        problem.problem =[]
+        problem.problem = []
         problem.problem.push({
-            title:"asfasf",
-            description:"asfasfu afhdlfds sdlgdsg",
-            tags:["Asf","sdgdsg","sdgdsg"],
-            checked:false,
-            disabled: false
+            title: "asfasf",
+            description: "asfasfu afhdlfds sdlgdsg",
+            tags: ["Asf", "sdgdsg", "sdgdsg"],
+            checked: false
         });
         problem.problem.push({
-            title:"sagag",
-            description:"sdgsdg dg",
-            tags:["ds","ggj","fh"],
-            checked:false,
-            disabled: false
+            title: "sagag",
+            description: "sdgsdg dg",
+            tags: ["ds", "ggj", "fh"],
+            checked: false
         });
         problem.problem.push({
-            title:"hdbd",
-            description:"dffd",
-            tags:["df","gf"],
-            checked:false,
-            disabled: false
+            title: "hdbd",
+            description: "dffd",
+            tags: ["df", "gf"],
+            checked: false
         });
         problem.problem.push({
-            title:"dgbd",
-            description:"fbd",
-            tags:["sc","gjg"],
-            checked:false,
-            disabled: false
+            title: "dgbd",
+            description: "fbd",
+            tags: ["sc", "gjg"],
+            checked: false
         });
-        console.log(this.state);
-        experience.experience.forEach((exp) => {
-            exp.checked = false;
-            exp.disabled = false;
-        })
 
         if (authRequired)
-            return <Redirect to="/login"/>
+            return <Redirect to="/login" />
 
         return (
-                <div className={classes.root}>
-                    <Grid container spacing={24}>
-                        <Grid item xs={12} sm={12}>
-                            <Paper className={classes.paper}>
-                                <TextField
-                                    id="standard-search"
-                                    label="Search field"
-                                    type="search"
-                                    className={classes.textField}
-                                    margin="normal"
-                                    onChange={this.handleChange}
-                                />
-                            </Paper>
-                        </Grid>
-
-                        {experience.experience.length > 0 && <Grid item xs={12} sm={6}>
-                            <Typography variant="h5" align={"center"} gutterBottom>
-                                Experiences
-                            </Typography>
-                            {experience.experience.map((items) =>
-                                <Grid item xs={12} sm={12}>
-                                    <Paper className={classes.paper}>
-                                        <Typography variant="h5" align={"left"} gutterBottom>{items.text}</Typography>
-                                        <br/>
-                                        {items.tags.map((tag) => <Chip label={tag} /> )}
-                                        <Checkbox checked={items.checked} disabled={items.disabled} onClick={this.handleCheckedChange(items)}
-                                                  />
-                                    </Paper>
-                                </Grid>
-                             )}
-                        </Grid> }
-
-                        {problem.problem.length > 0 && <Grid item xs={12} sm={6}>
-                            <Typography variant="h5" align={"center"} gutterBottom>
-                                Problems
-                            </Typography>
-                            {problem.problem.map((items) =>
-                                <Grid item xs={12} sm={12}>
-                                    <Paper className={classes.paper}>
-                                        <Typography variant="h5" align={"left"} gutterBottom>{items.title}</Typography>
-                                        <br/>
-                                        <Typography variant="h5" align={"left"} gutterBottom>{items.description}</Typography>
-                                        <br/>
-                                        {items.tags.map((tag) => <Chip label={tag} /> )}
-                                        <Checkbox/>
-                                    </Paper>
-                                </Grid>
-                            )}
-                        </Grid> }
-
+            <div className={classes.root}>
+                <Grid container spacing={24}>
+                    <Grid item xs={12} sm={12}>
+                        <Paper className={classes.paper}>
+                            <TextField
+                                id="standard-search"
+                                label="Search field"
+                                type="search"
+                                className={classes.textField}
+                                margin="normal"
+                                onChange={this.handleChange}
+                            />
+                        </Paper>
                     </Grid>
-                </div>
-            )
-        }
+
+                    {experience.experienceList.length > 0 && <Grid item xs={12} sm={6}>
+                        <Typography variant="h5" align={"center"} gutterBottom>
+                            Experiences
+                            </Typography>
+                        {experience.experienceList.map((items, index) =>
+                            <Grid item xs={12} sm={12}>
+                                <Paper className={classes.paper}>
+                                    <Typography variant="h5" align={"left"} gutterBottom>{items.text}</Typography>
+                                    <br />
+                                    {items.tags.map((tag) => <Chip label={tag} />)}
+                                    <Checkbox checked={items.checked} disabled={items.disabled} onClick={this.handleCheckedChange(index)}
+                                    />
+                                </Paper>
+                            </Grid>
+                        )}
+                    </Grid>}
+
+                    {problem.problem.length > 0 && <Grid item xs={12} sm={6}>
+                        <Typography variant="h5" align={"center"} gutterBottom>
+                            Problems
+                            </Typography>
+                        {problem.problem.map((items) =>
+                            <Grid item xs={12} sm={12}>
+                                <Paper className={classes.paper}>
+                                    <Typography variant="h5" align={"left"} gutterBottom>{items.title}</Typography>
+                                    <br />
+                                    <Typography variant="h5" align={"left"} gutterBottom>{items.description}</Typography>
+                                    <br />
+                                    {items.tags.map((tag) => <Chip label={tag} />)}
+                                    <Checkbox />
+                                </Paper>
+                            </Grid>
+                        )}
+                    </Grid>}
+
+                </Grid>
+            </div>
+        )
+    }
 }
 export default withStyles(styles)(connect(mapStateToProps)(CurationForm));

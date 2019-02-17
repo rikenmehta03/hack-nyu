@@ -12,3 +12,8 @@ export const getExperience = (q = '') => {
             });
     };
 };
+
+export const updateExperience = (payload) => ({
+    type: 'UPDATE_EXPERIENCE',
+    data: payload
+});
