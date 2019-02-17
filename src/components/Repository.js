@@ -102,8 +102,8 @@ class Repository extends React.Component {
                                     <div className={classes.root}>
                                         Progress: {prob.progress}%<LinearProgress variant="determinate" value={prob.progress} />
 
-                                        <ThumbDown className={classes.icon} /> {prob.votes.up}
-                                        <ThumbUp className={classes.icon}/> {prob.votes.down}
+                                        <ThumbDown className={classes.icon} /> {prob.votes.down}
+                                        <ThumbUp className={classes.icon}/> {prob.votes.up}
 
                                     </div>
                                 </Grid>

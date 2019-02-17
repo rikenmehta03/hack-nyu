@@ -6,6 +6,8 @@ import uuid from "uuid";
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import $ from 'jquery';
+
 
 
 const styles = theme => ({
@@ -18,6 +20,7 @@ const styles = theme => ({
         margin: theme.spacing.unit,
     }
 });
+
 
 
 class Register extends React.Component {
@@ -41,14 +44,10 @@ class Register extends React.Component {
                 password: this.state.password
             })
         }
-        fetch('/auth', opt)
-            .then(results => results.json())
-            .then(response => {
-                if (response.ok) {
-                    localStorage.setItem('hack-nyu-auth', response.data.token);
-                    this.setState({ login: true });
-                }
-            });
+
+
+
+
     }
     handleClick = (event) => {
         var opt = {
@@ -65,13 +64,32 @@ class Register extends React.Component {
                 reputation: 0
             })
         }
-        fetch('/register', opt)
-            .then(results => results.json())
-            .then(response => {
-                if (response.ok) {
-                    this.auth();
+        var bindthis = this;
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: "https://sandbox.api.it.nyu.edu/staff-exp/users/net-ids/"+this.state.netId,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader ("Authorization", "Bearer 57799210-113b-31dc-a6c6-4ef799ee766c");
+            },
+            success: function(data){
+                if(data && data.length>0){
+                    fetch('/register', opt)
+                        .then(results => results.json())
+                        .then(response => {
+                            if (response.ok) {
+                                bindthis.auth();
+                            }
+                        });// or .json() or .blob() ...
                 }
-            });
+                else{
+                    alert("Not an NYU staff ID");
+                }
+            }
+        });
+
+
+
     }
     render() {
         const { classes } = this.props;
