@@ -68,8 +68,7 @@ problem_statement = {
             "type": "array",
             "items": {
                 "type": "string"
-            },
-            "minItems": 5
+            }
         },
         "contributors": {
             "type": "array",
@@ -97,7 +96,7 @@ problem_statement = {
         }
     },
     "additionalProperties": False,
-    "required": ["id", "user", "title", "description", "tags", "tracks", "experiences", "progress", "votes", "flag"]
+    "required": ["id", "user", "title", "description", "tags", "progress", "votes", "flag"]
 }
 
 solution = {

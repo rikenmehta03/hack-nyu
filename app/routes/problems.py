@@ -19,7 +19,7 @@ problemsModel = {
     'description': fields.String(required=True),
     'experiences': fields.List(fields.String, required=True),
     'tags': fields.List(fields.String, required=True),
-    'tracks': fields.List(fields.String, required=True),
+    'tracks': fields.List(fields.String),
     'progress': fields.Float(required=True),
     'votes': fields.Nested(votes, required=True),
     'flag': fields.String(required=True)
