@@ -98,32 +98,6 @@ class CurationForm extends React.Component {
         const { experience, problem, classes } = this.props;
         const { authRequired, redirect } = this.state;
 
-        problem.problemList = []
-        problem.problemList.push({
-            title: "asfasf",
-            description: "asfasfu afhdlfds sdlgdsg",
-            tags: ["Asf", "sdgdsg", "sdgdsg"],
-            checked: false
-        });
-        problem.problemList.push({
-            title: "sagag",
-            description: "sdgsdg dg",
-            tags: ["ds", "ggj", "fh"],
-            checked: false
-        });
-        problem.problemList.push({
-            title: "hdbd",
-            description: "dffd",
-            tags: ["df", "gf"],
-            checked: false
-        });
-        problem.problemList.push({
-            title: "dgbd",
-            description: "fbd",
-            tags: ["sc", "gjg"],
-            checked: false
-        });
-
         if (authRequired)
             return <Redirect to="/login" />
 
