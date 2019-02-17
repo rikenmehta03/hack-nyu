@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
-import CurationForm from './CurationForm';
+
 import MyAppBar from "./MyAppBar";
 import LandingForm from "./LandingForm";
+import CurationForm from "./CurationForm";
 import Login from "./Login";
 
 const theme = createMuiTheme({
@@ -23,9 +24,9 @@ export default (props) => {
                 <MyAppBar />
                 <Switch>
                     <Route exact path="/" component={LandingForm} />
-                    <Route path="/logic" component={Login} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/curation" component={CurationForm} />
                 </Switch>
-                <CurationForm />
             </MuiThemeProvider>
         </Router>
     );

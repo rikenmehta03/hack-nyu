@@ -1,12 +1,14 @@
-export const getProblems = (payload) => {
-        return fetch('/api/problems/search?q=""')
+export const getProblems = (q = '') => {
+    return (dispatch) => {
+        return fetch('/api/problems/search?q=' + q)
             .then(results => results.json())
             .then(data => {
                 if (data.ok === true) {
                     dispatch({
                         type: 'LOAD_PROBLEMS',
-                        tasks: data.data
+                        data: data.data
                     });
                 }
             });
+    }
 };

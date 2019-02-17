@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { withStyles } from "@material-ui/core/styles";
-import {getProblems} from '../actions/problem';
-import {getExperience} from "../actions/experience";
+import { Redirect } from 'react-router-dom';
+
+import { getProblems } from '../actions/problem';
+import { getExperience } from "../actions/experience";
 
 
 const mapStateToProps = state => {
@@ -11,31 +12,32 @@ const mapStateToProps = state => {
         problem: state.problem
     };
 };
-function mapDispatchToProps(dispatch) {
-    return {
-        getExperience: () => dispatch(getExperience()),
-        getProblems: () => dispatch(getProblems())
-    };
-}
 
 
 class CurationForm extends React.Component {
-    constructor(...args){
-        super(...args);
-        getExperience();
-        getProblems();
+    state = {
+        authRequired: false
     }
-    render(){
-        const {experience , problem} = this.props;
-        console.log(experience);
-        return (
-            <div>
-                hello
-            </div>
+    componentDidMount() {
+        var token = localStorage.getItem('hack-nyu-auth');
+        if (!token){
+            this.setState({authRequired: true});
+        } 
+        this.props.dispatch(getExperience());
+        this.props.dispatch(getProblems());
+    }
+    render() {
+        const { experience, problem } = this.props;
+        const { authRequired } = this.state;
 
+        if(authRequired)
+            return <Redirect to="/login" />
+        
+        return (
+            <div>hello</div>
         )
     }
 
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CurationForm);
+export default connect(mapStateToProps)(CurationForm);

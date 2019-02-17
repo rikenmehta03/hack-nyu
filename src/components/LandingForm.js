@@ -397,8 +397,6 @@ class LandingForm extends React.Component {
                             'tags': []
                         }
                     })
-                    alert("Thank You");
-
                 }
             });
     }

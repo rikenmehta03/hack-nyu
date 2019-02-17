@@ -1,4 +1,4 @@
-import thunkMiddleware from 'redux-thunk';
+import thunk from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import experienceReducer from '../reducers/experience';
 import problemReducer from '../reducers/problem';
@@ -14,7 +14,7 @@ export default () => {
             user: userReducer
         }),
         applyMiddleware(
-            thunkMiddleware
+            thunk
         )
     );
     return store;

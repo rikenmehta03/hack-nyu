@@ -53,38 +53,38 @@ class Login extends React.Component {
             .then(response => {
                 if (response.ok) {
                     localStorage.setItem('hack-nyu-auth', response.data.token);
-                    this.setState({login: true});
+                    this.setState({ login: true });
                 }
             });
     }
     render() {
         const { classes } = this.props;
         const { login } = this.state;
-        return (
-            login ? (<Redirect to="/curation" />)
-                : (
-                    <React.Fragment>
-                        <TextField
-                            helperText="Enter your Username"
-                            label="Username"
-                            className={classes.textField}
-                            onChange={(event) => this.setState({ username: event.target.value })}
-                        />
 
-                        <TextField
-                            type="password"
-                            helperText="Enter your Password"
-                            label="Password"
-                            className={classes.textField}
-                            onChange={(event) => this.setState({ password: event.target.value })}
-                        />
+        if (login)
+            return <Redirect exact to="/curation" />;
+        else
+            return <React.Fragment>
+                <TextField
+                    helperText="Enter your Username"
+                    label="Username"
+                    className={classes.textField}
+                    onChange={(event) => this.setState({ username: event.target.value })}
+                />
 
-                        <Button variant="raised" color="primary" onClick={(event) => this.handleClick(event)} className={classes.button} >
-                            Login
-                                    </Button>
-                    </React.Fragment>
-                )
-        );
+                <TextField
+                    type="password"
+                    helperText="Enter your Password"
+                    label="Password"
+                    className={classes.textField}
+                    onChange={(event) => this.setState({ password: event.target.value })}
+                />
+
+                <Button variant="raised" color="primary" onClick={(event) => this.handleClick(event)} className={classes.button} >
+                    Login
+                                </Button>
+            </React.Fragment>
+
     }
 }
 
