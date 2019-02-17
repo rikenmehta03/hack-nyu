@@ -37,3 +37,16 @@ export const loadTasks = () => {
             });
     };
 };
+
+export function getExperience(payload) {
+    return fetch('/api/experience/search?q=""')
+        .then(results => results.json())
+        .then(data => {
+            if (data.ok === true) {
+                dispatch({
+                    type: 'LOAD_EXPERIENCES',
+                    tasks: data.data
+                });
+            }
+        });
+};

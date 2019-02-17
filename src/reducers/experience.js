@@ -1,5 +1,5 @@
 const experienceReducerDefaultState = {
-    
+    experience:[]
 }
 
 export default (state = experienceReducerDefaultState, action) => {
@@ -31,6 +31,10 @@ export default (state = experienceReducerDefaultState, action) => {
             return {
                 ...action.tasks
             };
+        case 'LOAD_EXPERIENCES':
+            return {
+                ...state,experience:action.payload
+            }
         default:
             return state;
     }
