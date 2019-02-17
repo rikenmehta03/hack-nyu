@@ -37,7 +37,7 @@ const mapStateToProps = state => {
 
 class CurationForm extends React.Component {
     state = {
-        authRequired: false
+        authRequired: false,
     }
     init = (text) => {
         var token = localStorage.getItem('hack-nyu-auth');
@@ -55,10 +55,51 @@ class CurationForm extends React.Component {
         this.init(event.target.value);
     }
 
+    handleCheckedChange =(items)=> () => {
+
+
+    }
+
     render() {
         const {experience, problem, classes} = this.props;
+
         const {authRequired} = this.state;
-        
+
+        problem.problem =[]
+        problem.problem.push({
+            title:"asfasf",
+            description:"asfasfu afhdlfds sdlgdsg",
+            tags:["Asf","sdgdsg","sdgdsg"],
+            checked:false,
+            disabled: false
+        });
+        problem.problem.push({
+            title:"sagag",
+            description:"sdgsdg dg",
+            tags:["ds","ggj","fh"],
+            checked:false,
+            disabled: false
+        });
+        problem.problem.push({
+            title:"hdbd",
+            description:"dffd",
+            tags:["df","gf"],
+            checked:false,
+            disabled: false
+        });
+        problem.problem.push({
+            title:"dgbd",
+            description:"fbd",
+            tags:["sc","gjg"],
+            checked:false,
+            disabled: false
+        });
+        console.log(this.state);
+        experience.experience.forEach((exp) => {
+            exp.checked = false;
+            exp.disabled = false;
+        })
+
         if (authRequired)
             return <Redirect to="/login"/>
 
@@ -88,7 +129,8 @@ class CurationForm extends React.Component {
                                         <Typography variant="h5" align={"left"} gutterBottom>{items.text}</Typography>
                                         <br/>
                                         {items.tags.map((tag) => <Chip label={tag} /> )}
-                                        <Checkbox/>
+                                        <Checkbox checked={items.checked} disabled={items.disabled} onClick={this.handleCheckedChange(items)}
+                                                  />
                                     </Paper>
                                 </Grid>
                              )}
