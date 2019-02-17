@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { withStyles } from "@material-ui/core/styles";
 import { getProblems } from '../actions/problem';
 import { getExperience, updateExperience } from "../actions/experience";
+import Fab from '@material-ui/core/Fab';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
@@ -19,10 +21,18 @@ const styles = theme => ({
     },
     paper: {
         padding: theme.spacing.unit * 2,
-        textAlign: 'center',
+        textAlign: 'left',
         color: theme.palette.text.secondary,
+        margin: theme.spacing.unit * 4
     },
-    spacing: 8,
+    chip: {
+        paddingRight: theme.spacing.unit * 2
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing.unit * 2,
+        right: theme.spacing.unit * 2,
+    }
 });
 
 const mapStateToProps = state => {
@@ -96,52 +106,51 @@ class CurationForm extends React.Component {
 
         return (
             <div className={classes.root}>
-                <Grid container spacing={24}>
-                    <Grid item xs={12} sm={12}>
-                        <Paper className={classes.paper}>
-                            <TextField
-                                id="standard-search"
-                                label="Search field"
-                                type="search"
-                                className={classes.textField}
-                                margin="normal"
-                                onChange={this.handleChange}
-                            />
-                        </Paper>
+                <Grid container direction="row" justify="center" alignItems="flex-start" spacing={24}>
+                    <Grid className={classes.paper} item xs={8}>
+                        <TextField
+                            id="standard-search"
+                            label="Search"
+                            type="search"
+                            fullWidth="true"
+                            className={classes.textField}
+                            margin="normal"
+                            onChange={this.handleChange}
+                        />
                     </Grid>
 
-                    {experience.experienceList.length > 0 && <Grid item xs={12} sm={6}>
+                    <Fab color="primary" aria-label="Add" className={classes.fab}>
+                        <AddIcon />
+                    </Fab>
+
+                    {experience.experienceList.length && <Grid item xs={10} sm={5}>
+
                         <Typography variant="h5" align={"center"} gutterBottom>
                             Experiences
                             </Typography>
                         {experience.experienceList.map((items, index) =>
-                            <Grid item xs={12} sm={12}>
-                                <Paper className={classes.paper}>
-                                    <Typography variant="h5" align={"left"} gutterBottom>{items.text}</Typography>
-                                    <br />
-                                    {items.tags.map((tag) => <Chip label={tag} />)}
-                                    <Checkbox checked={items.checked} disabled={items.disabled} onClick={this.handleCheckedChange(index)}
-                                    />
-                                </Paper>
-                            </Grid>
+                            <Paper className={classes.paper} >
+                                <Checkbox checked={items.checked} onClick={this.handleCheckedChange(index)}
+                                />
+                                {items.tags.map((tag) => <Chip className={classes.chip} label={tag} />)}
+                                <Typography variant="h5" gutterBottom>{items.text}</Typography>
+                            </Paper>
                         )}
                     </Grid>}
 
-                    {problem.problem.length > 0 && <Grid item xs={12} sm={6}>
+                    {problem.problem.length && <Grid item xs={10} sm={5}>
                         <Typography variant="h5" align={"center"} gutterBottom>
                             Problems
                             </Typography>
                         {problem.problem.map((items) =>
-                            <Grid item xs={12} sm={12}>
-                                <Paper className={classes.paper}>
-                                    <Typography variant="h5" align={"left"} gutterBottom>{items.title}</Typography>
-                                    <br />
-                                    <Typography variant="h5" align={"left"} gutterBottom>{items.description}</Typography>
-                                    <br />
-                                    {items.tags.map((tag) => <Chip label={tag} />)}
-                                    <Checkbox />
-                                </Paper>
-                            </Grid>
+                            <Paper className={classes.paper}>
+                                <Checkbox />
+                                {items.tags.map((tag) => <Chip className={classes.chip} label={tag} />)}
+                                <Typography variant="h5" align={"left"} gutterBottom>{items.title}</Typography>
+                                <br />
+                                <Typography variant="h5" align={"left"} gutterBottom>{items.description}</Typography>
+                                <br />
+                            </Paper>
                         )}
                     </Grid>}
 
