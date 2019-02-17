@@ -9,6 +9,7 @@ import CurationForm from "./CurationForm";
 import Login from "./Login";
 import Register from "./Register";
 import EditProblem from "./EditProblem";
+import Repository from "./Repository"
 
 const theme = createMuiTheme({
     palette: {
@@ -29,6 +30,7 @@ export default (props) => {
                     <Route path="/login" component={Login} />
                     <Route path="/curation" component={CurationForm} />
                     <Route path="/edit_problem" component={EditProblem}/>
+                    <Route path="/repository" component={Repository}/>
                 </Switch>
             </MuiThemeProvider>
         </Router>
