@@ -1,5 +1,6 @@
 const problemReducerDefaultState = {
-    problem:[]
+    problemList:[],
+    problem: null
 }
 
 export default (state = problemReducerDefaultState, action) => {
@@ -7,7 +8,12 @@ export default (state = problemReducerDefaultState, action) => {
         case 'LOAD_PROBLEMS':
             return {
                 ...state,
-                problem:action.data};
+                problemList: action.data};
+        case 'UPDATE_PROBLEM':
+            return {
+                ...state,
+                ...action.data
+            };
         default:
             return state;
     }

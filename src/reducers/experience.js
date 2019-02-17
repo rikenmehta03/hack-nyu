@@ -19,7 +19,7 @@ export default (state = experienceReducerDefaultState, action) => {
         case 'UPDATE_EXPERIENCE':
             return {
                 ...state,
-                experienceList: action.data
+                ...action.data
             };
         default:
             return state;

@@ -1,20 +1,20 @@
 import React from "react";
 import { connect } from 'react-redux';
+import uuid from "uuid";
 import { withStyles } from "@material-ui/core/styles";
-import { getProblems } from '../actions/problem';
+import { getProblems, updateProblem } from '../actions/problem';
 import { getExperience, updateExperience } from "../actions/experience";
 import Fab from '@material-ui/core/Fab';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 
 import { Redirect } from 'react-router-dom';
-import Link from "react-router-dom/es/Link";
 
 
 const styles = theme => ({
@@ -28,6 +28,7 @@ const styles = theme => ({
         padding: theme.spacing.unit * 2,
         textAlign: 'left',
         color: theme.palette.text.secondary,
+        margin: theme.spacing.unit * 4
     },
     chip: {
         paddingRight: theme.spacing.unit * 2
@@ -50,8 +51,7 @@ const mapStateToProps = state => {
 class CurationForm extends React.Component {
     state = {
         authRequired: false,
-        redirect:false,
-        index:-1
+        redirect: false
     }
     loadData = (text = '') => {
 
@@ -69,53 +69,55 @@ class CurationForm extends React.Component {
     handleChange = (event) => {
         this.loadData(event.target.value);
     }
-    goToEditPage = (index) => () => {
-        this.setState({redirect: true,index: index+1});
+    goToEditPage = (problem = null) => {
+        console.log("clicked");
+        if (problem === null) {
+            problem = {
+                id: uuid.v4()
+            }
+        }
+        this.props.dispatch(updateProblem({ problem }));
+        this.setState({ redirect: true });
     }
 
     handleCheckedChange = (index) => () => {
         let experienceList = this.props.experience.experienceList;
         experienceList[index].checked = !experienceList[index].checked;
-        this.props.dispatch(updateExperience(experienceList));
+        this.props.dispatch(updateExperience({ experienceList }));
     }
 
     checkSelected = () => {
-        for (var i=0;i<this.props.experience.experienceList.length;i++){
-            if(this.props.experience.experienceList[i].checked){
+        for (var i = 0; i < this.props.experience.experienceList.length; i++) {
+            if (this.props.experience.experienceList[i].checked) {
                 return true;
             }
         }
     }
 
     render() {
-        if (this.state.redirect) {
-            const pathname = "/problem/"+this.state.index;
-            return <Redirect push to={pathname} />;
-        }
         const { experience, problem, classes } = this.props;
+        const { authRequired, redirect } = this.state;
 
-        const { authRequired } = this.state;
-
-        problem.problem = []
-        problem.problem.push({
+        problem.problemList = []
+        problem.problemList.push({
             title: "asfasf",
             description: "asfasfu afhdlfds sdlgdsg",
             tags: ["Asf", "sdgdsg", "sdgdsg"],
             checked: false
         });
-        problem.problem.push({
+        problem.problemList.push({
             title: "sagag",
             description: "sdgsdg dg",
             tags: ["ds", "ggj", "fh"],
             checked: false
         });
-        problem.problem.push({
+        problem.problemList.push({
             title: "hdbd",
             description: "dffd",
             tags: ["df", "gf"],
             checked: false
         });
-        problem.problem.push({
+        problem.problemList.push({
             title: "dgbd",
             description: "fbd",
             tags: ["sc", "gjg"],
@@ -125,6 +127,8 @@ class CurationForm extends React.Component {
         if (authRequired)
             return <Redirect to="/login" />
 
+        if (redirect)
+            return <Redirect from="/curation" to="/edit_problem" />
         return (
             <div className={classes.root}>
                 <Grid container direction="row" justify="center" alignItems="flex-start" spacing={24}>
@@ -140,15 +144,13 @@ class CurationForm extends React.Component {
                         />
                     </Grid>
 
-                    <Fab color="primary" aria-label="Add" className={classes.fab}>
-                        <AddIcon />
-                    </Fab>
+                    {this.checkSelected() && <Fab color="primary" aria-label="Add" className={classes.fab} onClick={() => this.goToEditPage()}>
+                        <AddIcon/>
+                    </Fab>}
 
                     {experience.experienceList.length > 0 && <Grid item xs={10} sm={5}>
-
                         <Typography variant="h5" align={"center"} gutterBottom>
                             Experiences
-                            {this.checkSelected() && <Link to="/problem/0"><Button variant="contained" color="primary">yoo</Button></Link>}
                             </Typography>
                         {experience.experienceList.map((items, index) =>
                             <Paper className={classes.paper} >
@@ -160,11 +162,11 @@ class CurationForm extends React.Component {
                         )}
                     </Grid>}
 
-                    {problem.problem.length > 0 && <Grid item xs={10} sm={5}>
+                    {problem.problemList.length > 0 && <Grid item xs={10} sm={5}>
                         <Typography variant="h5" align={"center"} gutterBottom>
                             Problems
                             </Typography>
-                        {problem.problem.map((items,inx) =>
+                        {problem.problemList.map((items) =>
                             <Grid item xs={12} sm={12}>
                                 <Paper className={classes.paper}>
                                     <Typography variant="h5" align={"left"} gutterBottom>{items.title}</Typography>
@@ -172,9 +174,9 @@ class CurationForm extends React.Component {
                                     <Typography variant="h5" align={"left"} gutterBottom>{items.description}</Typography>
                                     <br />
                                     {items.tags.map((tag) => <Chip label={tag} />)}
-                                    <Button variant="contained" color="primary" className={classes.button} onClick={this.goToEditPage(inx)}>
-                                        EDIT
-                                    </Button>
+                                    <Fab color="primary" aria-label="Edit" onClick={() => this.goToEditPage(items)}>
+                                        <EditIcon />
+                                    </Fab>
                                 </Paper>
                             </Grid>
                         )}

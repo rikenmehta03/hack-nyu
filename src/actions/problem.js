@@ -12,3 +12,9 @@ export const getProblems = (q = '') => {
             });
     }
 };
+
+export const updateProblem = (payload) => ({
+    type: 'UPDATE_PROBLEM',
+    data: payload
+});
+
