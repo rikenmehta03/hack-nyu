@@ -4,6 +4,7 @@ from flask_restplus import Namespace, Resource, fields
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from ..elastic_module import DBClient
+from .. import app
 
 route = Namespace('problems', description='problems related operations')
 
@@ -57,8 +58,6 @@ class ProblemStatement(Resource):
     @jwt_required
     def post(self):
         doc = request.get_json()
-        user = get_jwt_identity()
-        doc['user'] = user['id']
         data = self.db.put(doc)
         return {'ok': True, 'data': data}
 
@@ -70,6 +69,7 @@ class ProblemStatement(Resource):
             return {'ok': True, 'message': 'document with id {} deleted'.format(prob_id)}
         else:
             return {'ok': False, 'message': 'document with id {} not found'.format(prob_id)}
+
 
 @route.route('/search')
 class ProblemSearch(Resource):
