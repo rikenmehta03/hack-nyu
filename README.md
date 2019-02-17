@@ -1,6 +1,9 @@
 # hack-nyu
 This repository contains the code for <b>problem-overflow</b> platform developed [@hack-nyu](https://hacknyu.org/)
 
+## [![Video](https://img.youtube.com/vi/b34PgqB8Juo/0.jpg)](https://www.youtube.com/watch?v=b34PgqB8Juo)
+
+
 ## Dependencies
 - [Yarn](https://yarnpkg.com/lang/en/docs/install)
 - [Docker](https://docs.docker.com/)
